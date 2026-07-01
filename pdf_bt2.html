@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 3: Viết Prompt hiệu quả cho các tác vụ học tập</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --accent: #2D8CFF; --text: #333; --border: #e2e8f0; --bg: #f8fafc; }
+  body { font-family: 'Outfit', sans-serif; color: var(--text); line-height: 1.6; margin: 0; padding: 0; background: #fff; }
+  .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+  .badge { display: inline-block; background: rgba(45,140,255,0.1); color: var(--accent); padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 13px; margin-bottom: 12px; }
+  h1 { font-size: 26px; color: #0D2137; margin-top: 0; margin-bottom: 8px; }
+  .meta { font-size: 14px; color: #666; margin-bottom: 24px; }
+  h2 { font-size: 18px; color: #1A3F63; border-bottom: 2px solid var(--bg); padding-bottom: 8px; margin-top: 30px; }
+  h3 { font-size: 16px; color: #2D8CFF; margin-top: 20px; margin-bottom: 10px; }
+  .card { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+  .prompt-level { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px dashed var(--border); }
+  .prompt-level:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .label { font-weight: 600; color: #0D2137; font-size: 14px; display: inline-block; width: 120px; }
+  .code-box { background: var(--bg); padding: 8px 12px; border-radius: 6px; font-family: monospace; font-size: 13px; color: #d63384; margin-top: 4px; display: block; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+  th, td { border: 1px solid var(--border); padding: 12px; text-align: left; }
+  th { background: var(--bg); color: #0D2137; font-weight: 600; }
+  ul { padding-left: 20px; }
+  li { margin-bottom: 8px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <span class="badge">BÀI 3</span>
+  <h1>Viết Prompt hiệu quả cho các tác vụ học tập</h1>
+  <div class="meta"><strong>Người thực hiện:</strong> Nguyễn Nhật Minh<br><strong>Mục tiêu:</strong> Nâng cao hiệu suất học tập qua tối ưu hóa giao tiếp với LLM.</div>
+
+  <h2>I. Lựa chọn và phân tích tác vụ học tập</h2>
+  <ul>
+    <li><strong>Tóm tắt tài liệu học thuật:</strong> Rút gọn bài báo/chương sách dài thành ý chính không mất tính logic. <em>Thách thức:</em> AI dễ tóm tắt sơ sài hoặc bỏ qua phương pháp nghiên cứu.</li>
+    <li><strong>Giải thích khái niệm phức tạp:</strong> Chuyển định nghĩa trừu tượng thành ngôn ngữ dễ hiểu. <em>Thách thức:</em> Cân bằng giữa đơn giản hóa và chính xác khoa học.</li>
+    <li><strong>Thiết kế bộ câu hỏi ôn tập:</strong> Tạo câu hỏi kiểm tra kiến thức. <em>Thách thức:</em> Cần độ phân hóa cao (nhớ → hiểu → vận dụng), có giải thích đáp án.</li>
+  </ul>
+
+  <h2>II. Xây dựng và thử nghiệm các phiên bản prompt</h2>
+  
+  <div class="card">
+    <h3>Tác vụ 1: Tóm tắt "Biến đổi khí hậu"</h3>
+    <div class="prompt-level"><span class="label">Mức 1 (Cơ bản):</span> <span class="code-box">"Tóm tắt bài viết sau."</span></div>
+    <div class="prompt-level"><span class="label">Mức 2 (Cải tiến):</span> <span class="code-box">"Hãy tóm tắt bài viết sau trong khoảng 300 từ. Dùng gạch đầu dòng nêu 3 luận điểm chính và 1 kết luận."</span></div>
+    <div class="prompt-level"><span class="label">Mức 3 (Nâng cao):</span> <span class="code-box">"Bạn là chuyên gia phân tích chính sách môi trường. Đọc tài liệu và lập bản tóm lược cho nhà quản lý. Yêu cầu cấu trúc: (1) Thực trạng, (2) Nguyên nhân chính, (3) Hệ lụy kinh tế, (4) Giải pháp đề xuất. Phong cách: học thuật, khách quan, tập trung số liệu thực tế."</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Tác vụ 2: Giải thích "Blockchain"</h3>
+    <div class="prompt-level"><span class="label">Mức 1 (Cơ bản):</span> <span class="code-box">"Blockchain là gì?"</span></div>
+    <div class="prompt-level"><span class="label">Mức 2 (Cải tiến):</span> <span class="code-box">"Giải thích Blockchain dễ hiểu cho người mới, kèm 1 ví dụ thực tế."</span></div>
+    <div class="prompt-level"><span class="label">Mức 3 (Nâng cao):</span> <span class="code-box">"Đóng vai giáo viên giỏi giải thích công nghệ cho trẻ 10 tuổi. Nhiệm vụ: giải thích Blockchain. Bước 1: dùng ẩn dụ (cuốn sổ cái ai cũng có bản sao, không ai xóa được). Bước 2: giải thích vì sao an toàn bằng tình huống thực tế. Bước 3: tóm tắt lợi ích trong 1 câu."</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Tác vụ 3: Câu hỏi ôn tập "Lịch sử Triều Trần"</h3>
+    <div class="prompt-level"><span class="label">Mức 1 (Cơ bản):</span> <span class="code-box">"Tạo 5 câu hỏi về triều đại nhà Trần."</span></div>
+    <div class="prompt-level"><span class="label">Mức 2 (Cải tiến):</span> <span class="code-box">"Tạo 5 câu hỏi trắc nghiệm kèm đáp án về cuộc kháng chiến chống quân Nguyên Mông lần thứ 2."</span></div>
+    <div class="prompt-level"><span class="label">Mức 3 (Nâng cao):</span> <span class="code-box">"Bạn là giảng viên Lịch sử. Thiết kế bộ câu hỏi: 3 câu trắc nghiệm mức 'Hiểu' có đáp án nhiễu logic; 2 câu tự luận mức 'Vận dụng' yêu cầu liên hệ bài học với bảo vệ chủ quyền hiện nay. Định dạng: Câu hỏi → Đáp án đúng → Giải thích vì sao đúng và các phương án khác sai (suy luận từng bước)."</span></div>
+  </div>
+
+  <h2>III. Phân tích hiệu quả và so sánh kết quả</h2>
+  <div style="overflow-x: auto;">
+    <table>
+      <thead>
+        <tr>
+          <th>Tiêu chí</th>
+          <th>Prompt Cơ bản</th>
+          <th>Prompt Nâng cao</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Độ chi tiết</strong></td>
+          <td>Thấp, chung chung</td>
+          <td>Rất cao, đi sâu từng khía cạnh</td>
+        </tr>
+        <tr>
+          <td><strong>Sự phù hợp đối tượng</strong></td>
+          <td>Không xác định, khô khan</td>
+          <td>Tùy chỉnh linh hoạt (giáo viên, chuyên gia, trẻ em)</td>
+        </tr>
+        <tr>
+          <td><strong>Cấu trúc dữ liệu</strong></td>
+          <td>Đoạn văn thô, khó theo dõi</td>
+          <td>Trình bày khoa học (bảng, danh sách, mục lục)</td>
+        </tr>
+        <tr>
+          <td><strong>Tỷ lệ sai sót (Hallucination)</strong></td>
+          <td>Dễ nhầm lẫn thông tin</td>
+          <td>Giảm tối đa nhờ ràng buộc (Constraints)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p><em>Lý do prompt nâng cao hiệu quả hơn:</em> Cung cấp Context và Role giúp AI giới hạn phạm vi tri thức; kỹ thuật Chain-of-thought buộc AI lập luận từng bước trước khi kết luận, nâng chất lượng phản hồi lên 70-80% so với câu lệnh thông thường.</p>
+
+  <h2>IV. Tổng hợp nguyên tắc — Quy tắc "4-C"</h2>
+  <ul>
+    <li><strong>Context (Ngữ cảnh):</strong> Cho AI biết đang đóng vai ai.</li>
+    <li><strong>Clear Goal (Mục tiêu rõ ràng):</strong> Xác định chính xác nhiệm vụ.</li>
+    <li><strong>Constraint (Ràng buộc):</strong> Giới hạn độ dài, ngôn ngữ, định dạng.</li>
+    <li><strong>Check & Refine (Kiểm tra & Cải tiến):</strong> Bổ sung dữ liệu hoặc yêu cầu AI sửa lại phần cụ thể nếu chưa ưng ý.</li>
+  </ul>
+</div>
+</body>
+</html>
