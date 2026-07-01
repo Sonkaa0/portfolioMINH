@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 5: Sử dụng AI tạo sinh để hỗ trợ sáng tạo nội dung</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --accent: #2D8CFF; --text: #333; --border: #e2e8f0; --bg: #f8fafc; }
+  body { font-family: 'Outfit', sans-serif; color: var(--text); line-height: 1.6; margin: 0; padding: 0; background: #fff; }
+  .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+  .badge { display: inline-block; background: rgba(45,140,255,0.1); color: var(--accent); padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 13px; margin-bottom: 12px; }
+  h1 { font-size: 24px; color: #0D2137; margin-top: 0; margin-bottom: 8px; line-height: 1.3; }
+  .meta { font-size: 14px; color: #666; margin-bottom: 24px; }
+  h2 { font-size: 20px; color: #fff; background: #1A3F63; padding: 10px 16px; border-radius: 6px; margin-top: 30px; margin-bottom: 16px; }
+  h3 { font-size: 16px; color: #2D8CFF; margin-top: 20px; margin-bottom: 10px; }
+  .card { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+  th, td { border: 1px solid var(--border); padding: 10px; text-align: left; vertical-align: top; }
+  th { background: var(--bg); color: #0D2137; font-weight: 600; }
+  .img-placeholder { display: block; width: 100%; max-width: 500px; height: auto; border: 1px solid #ddd; border-radius: 8px; margin: 12px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+  blockquote { border-left: 4px solid var(--accent); background: var(--bg); margin: 20px 0; padding: 16px 20px; font-style: italic; color: #1A3F63; border-radius: 0 8px 8px 0; }
+  
+  /* Progress Bar */
+  .progress-item { margin-bottom: 12px; }
+  .progress-label { display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .progress-track { width: 100%; height: 10px; background: #e2e8f0; border-radius: 10px; overflow: hidden; display: flex; }
+  .progress-human { background: #52C97A; height: 100%; }
+  .progress-ai { background: #2D8CFF; height: 100%; }
+  .legend { display: flex; gap: 16px; font-size: 12px; margin-top: 8px; }
+  .legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
+  .l-human::before { background: #52C97A; }
+  .l-ai::before { background: #2D8CFF; }
+
+  .prompt-box { background: var(--bg); padding: 16px; border-radius: 8px; margin-bottom: 16px; border: 1px solid var(--border); }
+  .prompt-box ul { margin-top: 8px; margin-bottom: 0; padding-left: 20px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <span class="badge">BÀI 5</span>
+  <h1>Dự án GreenShare — Giải pháp Chống lãng phí Thực phẩm & Báo cáo Phân tích AI</h1>
+  <div class="meta">
+    <strong>Người thực hiện:</strong> Nguyễn Nhật Minh — MSSV 25020975<br>
+    <strong>Học phần:</strong> Kỹ năng Sáng tạo Nội dung Số (Mức 4: Đồng sáng tạo AI)
+  </div>
+
+  <h2>PHẦN I: DỰ ÁN GREENSHARE</h2>
+  <div class="card">
+    <h3>Bối cảnh & Thực trạng</h3>
+    <p>Khảo sát chỉ ra 8.8 triệu tấn thực phẩm bị vứt bỏ mỗi năm tại Việt Nam dù vẫn đảm bảo chất lượng dinh dưỡng, trong khi hàng triệu người lao động thu nhập thấp, người vô gia cư, trẻ em cơ nhỡ tại các mái ấm thiện nguyện vẫn đang đối mặt với bài toán dinh dưỡng mỗi ngày.</p>
+    
+    <h3>Giải pháp GreenShare</h3>
+    <p>Nhiệm vụ cốt lõi: GreenShare là nền tảng số hóa hỗ trợ các chuỗi khách sạn, nhà hàng, siêu thị đăng tải thông tin lượng thực phẩm dư thừa đạt tiêu chuẩn an toàn thực phẩm.</p>
+    <p>Hiệu quả trực tiếp: Đưa thực phẩm sạch đến tay các tổ chức từ thiện và người lao động nghèo một cách nhanh chóng, tránh lãng phí tài nguyên và cắt giảm khí thải methane.</p>
+    <img src="https://ediblemarinandwinecountry.ediblecommunities.com/wp-content/uploads/2021/12/farm-to-pantry-1-1024x683.jpg" alt="[Ảnh minh họa: hoạt động thiện nguyện phân phối thực phẩm]" class="img-placeholder">
+
+    <h3>Lộ trình triển khai</h3>
+    <ol>
+      <li><strong>Giai đoạn 1:</strong> Khảo sát hành vi, chuẩn hóa quy trình kiểm định chất lượng thực phẩm thừa.</li>
+      <li><strong>Giai đoạn 2:</strong> Lập trình ứng dụng di động GreenShare phiên bản thử nghiệm (Beta).</li>
+      <li><strong>Giai đoạn 3:</strong> Vận hành thí điểm tại 50 nhà hàng đối tác thuộc khu vực Hà Nội.</li>
+      <li><strong>Giai đoạn 4:</strong> Nhân rộng mô hình toàn quốc, kết nối thêm hệ thống xe ôm công nghệ giao nhận.</li>
+    </ol>
+
+    <h3>Giao diện ứng dụng di động</h3>
+    <p><strong>Giao diện tối giản và trực quan:</strong></p>
+    <ul>
+      <li><strong>Đối với Nhà hàng:</strong> Chỉ cần 3 bước chạm để chụp ảnh, định lượng và đăng tải các gói thức ăn còn dư trong ngày lên hệ thống định vị thời gian thực.</li>
+      <li><strong>Đối với Người nhận / Tình nguyện viên:</strong> Bản đồ trực quan hiển thị các điểm phát thức ăn sạch miễn phí hoặc giá trợ giá gần nhất kèm theo hướng dẫn đường đi tối ưu.</li>
+    </ul>
+    <img src="https://cdn.dribbble.com/userupload/46593197/file/b5b2686db596769b12021ad86fa44bc7.png?resize=2048x1536&vertical=center" alt="[Ảnh minh họa: mockup giao diện app]" class="img-placeholder">
+
+    <h3>Kế hoạch điều phối thực phẩm</h3>
+    <ul>
+      <li>Mái ấm thiện nguyện & Tổ chức xã hội: <strong>50%</strong></li>
+      <li>Người nghèo & Lao động tự do: <strong>30%</strong></li>
+      <li>Chế biến làm thức ăn chăn nuôi / Ủ phân bón hữu cơ: <strong>20%</strong></li>
+    </ul>
+    <p><em>100% nguồn thực phẩm giải cứu được phân loại kỹ lưỡng. Thức ăn tươi chín được ưu tiên cấp phát ngay; phần thực phẩm không kịp sử dụng sẽ chuyển sang quy trình xử lý rác thải hữu cơ tái chế nông nghiệp.</em></p>
+  </div>
+
+  <h2>PHẦN II: BÁO CÁO PHÂN TÍCH AI</h2>
+  
+  <h3>1. Hệ sinh thái AI đã sử dụng</h3>
+  <div style="overflow-x: auto;">
+    <table>
+      <thead>
+        <tr>
+          <th>Công cụ AI</th>
+          <th>Phân loại AI</th>
+          <th>Điểm mạnh học thuật (Sức mạnh)</th>
+          <th>Giới hạn & Điểm yếu cốt lõi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Google Gemini</strong></td>
+          <td>Tạo văn bản (LLM)</td>
+          <td>Lập dàn ý cực nhanh, tư duy đa chiều tốt, cấu trúc thông tin chặt chẽ.</td>
+          <td>Thông tin thiếu tính bản địa Việt Nam, hành văn mang phong cách dịch thuật.</td>
+        </tr>
+        <tr>
+          <td><strong>Midjourney v6.0</strong></td>
+          <td>Tạo hình ảnh (Diffusion)</td>
+          <td>Chất lượng nghệ thuật 3D xuất sắc, độ đổ khối ánh sáng chân thực và tinh xảo.</td>
+          <td>Rất khó để đồng bộ chi tiết nhân vật qua nhiều lệnh tạo khác nhau. Lỗi chữ viết tệ.</td>
+        </tr>
+        <tr>
+          <td><strong>Canva AI</strong></td>
+          <td>Hỗ trợ thiết kế</td>
+          <td>Tự động hóa bố cục lưới căn bản nhanh, gợi ý bảng màu hài hòa, đồng bộ tốt.</td>
+          <td>Bản dựng tự động còn thô cứng, thiếu tính nhạy bén nghệ thuật và khoảng trống thở.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>2. Đánh giá Tỷ lệ Đóng góp Thực tế</h3>
+  <div class="card">
+    <div class="progress-item">
+      <div class="progress-label"><span>Ý tưởng & Giải pháp gốc</span> <span>Người: 85% | AI: 15%</span></div>
+      <div class="progress-track"><div class="progress-human" style="width: 85%"></div><div class="progress-ai" style="width: 15%"></div></div>
+    </div>
+    <div class="progress-item">
+      <div class="progress-label"><span>Biên tập & Chỉnh sửa nội dung</span> <span>Người: 65% | AI: 35%</span></div>
+      <div class="progress-track"><div class="progress-human" style="width: 65%"></div><div class="progress-ai" style="width: 35%"></div></div>
+    </div>
+    <div class="progress-item">
+      <div class="progress-label"><span>Xây dựng Visual & Thiết kế đồ họa</span> <span>Người: 55% | AI: 45%</span></div>
+      <div class="progress-track"><div class="progress-human" style="width: 55%"></div><div class="progress-ai" style="width: 45%"></div></div>
+    </div>
+    <div class="legend">
+      <span class="l-human">Con người</span>
+      <span class="l-ai">Trí tuệ nhân tạo (AI)</span>
+    </div>
+    <p style="font-size: 13px; margin-top: 12px; color: #666; text-align: center;"><em>Công thức tính Chỉ số Đóng góp Sáng tạo độc lập (CCI):<br>CCI = (E_human × Q_refinement) / (E_human + E_AI) × 100% > 50%</em></p>
+  </div>
+
+  <h3>3. Cách AI thay đổi Tư duy Sáng tạo</h3>
+  <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 250px; background: var(--bg); padding: 16px; border-radius: 8px;">
+      <strong style="color: #FF5F57; font-size: 16px;">Mô hình cũ: Thực thi cơ học</strong>
+      <p style="font-size: 14px; margin-top: 8px;">Trước đây, phần lớn thời gian dự án bị tiêu tốn vào các khâu kỹ thuật cơ học như cắt nền hình ảnh, vẽ vector, dựng layout lưới từ đầu hoặc tự nghiên cứu bố cục.</p>
+      <p style="font-size: 14px;">Năng lực thẩm mỹ bị giới hạn bởi kỹ năng công cụ của chính người làm, dẫn đến thời gian triển khai kéo dài từ vài ngày đến hàng tuần.</p>
+    </div>
+    <div style="flex: 1; min-width: 250px; background: #eef6ff; padding: 16px; border-radius: 8px;">
+      <strong style="color: #2D8CFF; font-size: 16px;">Mô hình mới: Giám sát nghệ thuật</strong>
+      <p style="font-size: 14px; margin-top: 8px;">Dưới sự hỗ trợ của Generative AI, tư duy của người sáng tạo chuyển từ "Trực tiếp thực thi" sang "Định hướng và Phản biện" (Art Direction & Curation).</p>
+      <p style="font-size: 14px;">Người thiết kế tập trung chất xám vào phân tích tâm lý người xem, xác thực tính đúng đắn của dữ liệu và truyền tải thông điệp cảm xúc cốt lõi.</p>
+    </div>
+  </div>
+
+  <h3>4. Vấn đề Đạo đức & Tính nhân văn</h3>
+  <blockquote>
+    "AI có thể bắt chước hoàn hảo hàng triệu phong cách thiết kế, nhưng nó không thể thấu cảm được nỗi đau của một đứa trẻ thiếu ăn hay cảm nhận được sự ấm áp của sự sẻ chia thực tế của con người."
+    <br><br><span style="font-size: 14px; font-weight: 600;">— Nhận định cốt lõi về Đạo đức Sáng tạo số</span>
+  </blockquote>
+  <p>Việc sử dụng các công cụ AI huấn luyện trên các tác phẩm nghệ thuật không có bản quyền đòi hỏi người thiết kế phải minh bạch hóa quá trình sử dụng. Tuyệt đối tránh lạm dụng, sao chép nguyên mẫu để giữ vững bản sắc cá nhân và tôn trọng quyền sở hữu trí tuệ của cộng đồng nghệ sĩ thực tế.</p>
+
+  <h2>PHỤ LỤC: Nhật ký Prompting & Phân tích vai trò AI</h2>
+  <div class="card">
+    <p style="font-size: 18px; color: #1A3F63; font-weight: 600; margin-top: 0;">1. Nhật ký Prompting và kết quả nhận được</p>
+    
+    <div class="prompt-box">
+      <strong style="color: #2D8CFF;">Lần 1 – Prompt ban đầu</strong><br>
+      <em>Prompt:</em> “Hãy viết cho tôi nội dung slide thuyết trình về dự án app giải cứu đồ ăn thừa GreenShare.”<br>
+      <em>Kết quả:</em>
+      <ul>
+        <li>Nội dung dài, mang tính bài văn.</li>
+        <li>Ý tưởng còn chung chung.</li>
+        <li>Chưa phù hợp để đưa trực tiếp lên slide.</li>
+        <li>Thiếu số liệu thực tế tại Việt Nam.</li>
+      </ul>
+    </div>
+
+    <div class="prompt-box">
+      <strong style="color: #52C97A;">Lần 2 – Prompt tối ưu</strong><br>
+      <em>Prompt:</em> Yêu cầu AI đóng vai chuyên gia khởi nghiệp xã hội, xây dựng Pitch Deck 7 slide với nội dung ngắn gọn, có số liệu, hình ảnh minh họa và ngôn ngữ thuyết phục.<br>
+      <em>Kết quả:</em>
+      <ul>
+        <li>Nội dung được chia rõ theo từng slide.</li>
+        <li>Các ý ngắn gọn, dễ trình bày.</li>
+        <li>Có số liệu và gợi ý hình ảnh minh họa.</li>
+        <li>Tiêu đề slide thu hút hơn.</li>
+      </ul>
+    </div>
+    
+    <p style="font-size: 18px; color: #1A3F63; font-weight: 600; margin-top: 24px;">2. Đóng góp và chỉnh sửa của con người (55%)</p>
+    <ul>
+      <li>Kiểm tra và thay thế số liệu bằng nguồn phù hợp hơn.</li>
+      <li>Điều chỉnh ngôn ngữ cho tự nhiên, dễ hiểu.</li>
+      <li>Lược bỏ nội dung dư thừa, cô đọng ý chính.</li>
+      <li>Hoàn thiện bố cục, cỡ chữ và cách trình bày.</li>
+    </ul>
+    <p><strong>Kết luận:</strong> AI hỗ trợ xây dựng ý tưởng và nội dung ban đầu, còn việc kiểm chứng thông tin, chỉnh sửa và hoàn thiện sản phẩm do tôi thực hiện.</p>
+
+    <p style="font-size: 18px; color: #1A3F63; font-weight: 600; margin-top: 24px;">3. Phân tích vai trò của AI trong quá trình sáng tạo</p>
+    <ul>
+      <li><strong>Những phần AI làm tốt và những phần còn hạn chế:</strong> AI hỗ trợ hiệu quả trong việc xây dựng ý tưởng, đề xuất cấu trúc nội dung và tạo bản nháp nhanh chóng. Nhờ đó, quá trình chuẩn bị bài thuyết trình được rút ngắn đáng kể. Tuy nhiên, AI đôi khi cung cấp thông tin chưa chính xác, số liệu chưa được kiểm chứng và sử dụng một số cách diễn đạt chưa phù hợp với ngữ cảnh Việt Nam. Vì vậy, người dùng cần rà soát và chỉnh sửa trước khi sử dụng.</li>
+      <li style="margin-top: 8px;"><strong>Cách AI thay đổi quy trình sáng tạo:</strong> Thay vì bắt đầu từ một trang giấy trắng, tôi sử dụng AI để tạo khung nội dung ban đầu và gợi ý các hướng triển khai. Điều này giúp tiết kiệm thời gian, tăng khả năng tìm kiếm ý tưởng và tập trung nhiều hơn vào việc phân tích, đánh giá và hoàn thiện sản phẩm cuối cùng.</li>
+      <li style="margin-top: 8px;"><strong>Các vấn đề đạo đức cần cân nhắc:</strong> Khi sử dụng AI, cần đảm bảo tính trung thực học thuật bằng cách công khai việc sử dụng công cụ hỗ trợ. Đồng thời, người dùng phải kiểm tra độ chính xác của thông tin, tránh sao chép hoàn toàn nội dung do AI tạo ra và tôn trọng các quy định về bản quyền, quyền riêng tư cũng như trách nhiệm đối với sản phẩm cuối cùng.</li>
+    </ul>
+  </div>
+
+  <div style="margin-top: 30px; font-size: 13px; color: #666; border-top: 1px solid #eee; padding-top: 16px;">
+    <strong style="font-size: 15px; color: #1A3F63;">Nguồn ảnh tham khảo (Image Sources):</strong><br>
+    <ul style="list-style: none; padding-left: 0; margin-top: 8px;">
+      <li style="margin-bottom: 8px;">[1] Nguồn ảnh thiện nguyện: <a href="https://ediblemarinandwinecountry.ediblecommunities.com" target="_blank" style="color: #2D8CFF; text-decoration: none;">ediblemarinandwinecountry.ediblecommunities.com</a></li>
+      <li>[2] Nguồn ảnh mockup: <a href="https://dribbble.com" target="_blank" style="color: #2D8CFF; text-decoration: none;">dribbble.com</a></li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>
